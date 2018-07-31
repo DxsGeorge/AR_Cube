@@ -1,6 +1,8 @@
 package user.ar_cube;
 
 import android.content.res.Configuration;
+import android.graphics.PixelFormat;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Surface;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
     }
 
-    private GLView glView;
+    GLSurfaceView mGLSurfaceView;
 
     ArrayList<Point> prevpts = new ArrayList<Point>();
     ArrayList<Point> v_list = new ArrayList<Point>();
@@ -74,7 +76,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         final Button button = findViewById(R.id.button_id);
@@ -88,7 +92,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         javaCameraView.setVisibility(SurfaceView.VISIBLE);
         javaCameraView.setCvCameraViewListener(this);
 
-        glView = (GLView) findViewById(R.id.GLView);
+        mGLSurfaceView = (GLSurfaceView) findViewById(R.id.my_surface_view);
+
+        setContentView(mGLSurfaceView);
 
         prevpts.add(new Point (0,0));
         prevpts.add(new Point (5,0));
@@ -107,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         super.onPause();
         if (javaCameraView!=null)
             javaCameraView.disableView();
-        glView.onPause();
+        mGLSurfaceView.onPause();
     }
 
     @Override
@@ -122,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         if (OpenCVLoader.initDebug()) {
             mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
         }
-        glView.onResume();
+        mGLSurfaceView.onResume();
 
     }
 

@@ -72,7 +72,11 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
+
+
         GLES20.glClearColor(0f, 0, 0, 0f);
+
+
 
         final float eyeX = 0.0f;
         final float eyeY = 0.0f;

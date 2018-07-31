@@ -8,9 +8,11 @@
     tools:context=".MainActivity">
 
     <com.ar_cube.GLView
-        android:id="@+id/GLView"
+        android:id="@+id/my_surface_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+    </com.ar_cube.GLView >
 
 
 
