@@ -64,6 +64,16 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
                 0.0f, 1.0f, 0.0f, 1.0f
         };
 
+        final int COORDS_PER_VERTEX = 4;
+
+        final float[] squareCoords = {
+                -0.5f,  0.5f, 0.0f,   // top left
+                -0.5f, -0.5f, 0.0f,   // bottom left
+                0.5f, -0.5f, 0.0f,   // bottom right
+                0.5f,  0.5f, 0.0f }; // top right
+
+
+
         mTriangle1Vertices = ByteBuffer.allocateDirect(triangle1VerticesData.length * mBytesPerFloat)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
 
@@ -253,7 +263,6 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
 
         // Draw the triangle facing straight on.
         Matrix.setIdentityM(mModelMatrix, 0);
-        Matrix.rotateM(mModelMatrix, 0, angleInDegrees, 0.0f, 0.0f, 1.0f);
         drawTriangle(mTriangle1Vertices);
     }
 
@@ -284,4 +293,6 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
     }
+
+
 }

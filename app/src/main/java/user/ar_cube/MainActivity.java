@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
         mGLSurfaceView = (GLSurfaceView) findViewById(R.id.my_surface_view);
 
-        setContentView(mGLSurfaceView);
 
         prevpts.add(new Point (0,0));
         prevpts.add(new Point (5,0));

@@ -23,6 +23,6 @@ public class GLView extends GLSurfaceView{
         setEGLConfigChooser( 8, 8, 8, 8, 16, 0 );
         getHolder().setFormat( PixelFormat.TRANSPARENT );
         setPreserveEGLContextOnPause(true);
-        setRenderer(new OpenGLRenderer());
+        setRenderer(new SquareRenderer());
     }
 }
