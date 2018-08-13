@@ -23,6 +23,8 @@ public class ControlVariables {
     public int stat;
     public boolean cap;
     public boolean newface;
+    public String state;
+    public int seenFacesCount;
 
     public int x1, x2, x3, x4, y1, y2, y3, y4;
     public int faces_count;
@@ -44,6 +46,8 @@ public class ControlVariables {
         succ = 0;
         cap = false;
         newface = false;
+        state = "";
+        seenFacesCount = 0;
     }
 
     public int getTracking() { return tracking; }

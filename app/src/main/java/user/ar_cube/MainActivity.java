@@ -51,10 +51,10 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     public static MatOfPoint2f points = new MatOfPoint2f();
     ArrayList<Double> faces = new ArrayList<>();
     double[] face = new double[27];
-    String state = new String();
+    //String state = new String();
 
 
-    static ControlVariables controlvars = new ControlVariables();
+    public static ControlVariables controlvars = new ControlVariables();
 
     JavaCameraView javaCameraView;
     Mat mRGBA, mGray, mRGBAt, mGrayt;
@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+
 
         setContentView(R.layout.activity_main);
 
@@ -104,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         v_list.add(p0);
         v_pts.fromList(v_list);
 
+        controlvars.state = "RRRRRRRRROOOOOOOOOYYYYYYYYYGGGGGGGGGBBBBBBBBBWWWWWWWWW";
     }
 
 
@@ -182,6 +185,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                 for (int i = 0; i<27; ++i) faces.add(face[i]);
             }
             controlvars.newface = false;
+
+            if (controlvars.seenFacesCount < 16 ) controlvars.seenFacesCount++;
         }
         else if (controlvars.parsedsolution == false)
         {
@@ -190,13 +195,17 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             {
                 arr_faces[i] = faces.get(i).doubleValue();
             }
-            state = processColors(arr_faces);
+            controlvars.state = processColors(arr_faces);
 
             controlvars.parsedsolution = true;
+
+            if (controlvars.seenFacesCount < 16 ) controlvars.seenFacesCount++;
         }
         else
         {
-            System.out.println(state);
+            System.out.println(controlvars.state);
+
+            if (controlvars.seenFacesCount < 16 ) controlvars.seenFacesCount++;
         }
         return mRGBA;
     }

@@ -21,8 +21,9 @@ public class GLView extends GLSurfaceView{
         setEGLContextClientVersion(2);
         setZOrderOnTop(true);
         setEGLConfigChooser( 8, 8, 8, 8, 16, 0 );
-        getHolder().setFormat( PixelFormat.TRANSPARENT );
+        getHolder().setFormat(PixelFormat.TRANSPARENT);
         setPreserveEGLContextOnPause(true);
-        setRenderer(new SquareRenderer());
+        setRenderer(new MyGLRenderer());
+        //setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
     }
 }
