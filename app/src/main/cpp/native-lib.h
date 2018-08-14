@@ -6,6 +6,7 @@
 #include <opencv2/video/tracking.hpp>
 #include "ImageFilters.h"
 #include "MyUtils.h"
+#include "Input.hpp"
 
 extern "C" {
 
@@ -25,5 +26,8 @@ Java_user_ar_1cube_MainActivity_process(JNIEnv *env,
 
 JNIEXPORT jstring JNICALL
 Java_user_ar_1cube_MainActivity_processColors(JNIEnv *env, jobject, jdoubleArray faces);
+
+JNIEXPORT jstring JNICALL
+Java_user_ar_1cube_MainActivity_kociemba(JNIEnv *env, jobject, jstring colors);
 
 }

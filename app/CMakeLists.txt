@@ -15,13 +15,24 @@ cmake_minimum_required(VERSION 3.4.1)
 # Gradle automatically packages shared libraries with your APK.
 
 include_directories(${pathToOpencv}/sdk/native/jni/include
-                    ${pathToProject}/app/src/main/cpp)
+                    ${pathToProject}/app/src/main/cpp
+                    ${pathToProject}/app/src/main/cpp/kociemba)
 
 add_library( native-lib
              SHARED
              src/main/cpp/MyUtils.cpp
              src/main/cpp/ImageFilters.cpp
              src/main/cpp/native-lib.cpp
+             src/main/cpp/Combinatorics.cpp
+             src/main/cpp/Cube.cpp
+             src/main/cpp/CubeParser.cpp
+             src/main/cpp/FaceletCube.cpp
+             src/main/cpp/MoveTable.cpp
+             src/main/cpp/PruningTable.cpp
+             src/main/cpp/RubiksCube.cpp
+             src/main/cpp/Solver.cpp
+             src/main/cpp/Vector.cpp
+             src/main/cpp/Input.cpp
                 )
 
 add_library( lib_opencv SHARED IMPORTED )

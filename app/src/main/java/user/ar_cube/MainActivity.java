@@ -186,6 +186,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             }
             controlvars.newface = false;
 
+            controlvars.solution = kociemba(controlvars.state);
+
             if (controlvars.seenFacesCount < 16 ) controlvars.seenFacesCount++;
         }
         else if (controlvars.parsedsolution == false)
@@ -197,13 +199,17 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             }
             controlvars.state = processColors(arr_faces);
 
+
+
             controlvars.parsedsolution = true;
 
             if (controlvars.seenFacesCount < 16 ) controlvars.seenFacesCount++;
         }
         else
         {
-            System.out.println(controlvars.state);
+            System.out.println(controlvars.solution);
+
+
 
             if (controlvars.seenFacesCount < 16 ) controlvars.seenFacesCount++;
         }
@@ -221,4 +227,6 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                                double[] face);
 
     public native String processColors(double[] faces);
+
+    public native String kociemba(String state);
 }

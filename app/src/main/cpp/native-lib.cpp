@@ -317,6 +317,34 @@ Java_user_ar_1cube_MainActivity_processColors(JNIEnv *env, jobject, jdoubleArray
     return state;
 }
 
+JNIEXPORT jstring JNICALL
+Java_user_ar_1cube_MainActivity_kociemba(JNIEnv *env, jobject, jstring colors)
+{
+    unsigned int status;
+    const char *nativeString = env->GetStringUTFChars(colors, 0);
+
+    string faceletStrings[6];
+    faceletStrings[0]+="U:";
+    faceletStrings[1]+="D:";
+    faceletStrings[2]+="F:";
+    faceletStrings[3]+="B:";
+    faceletStrings[4]+="R:";
+    faceletStrings[5]+="L:";
+    for (int i =0; i < 6; ++i)
+    {
+        string facelet;
+        for (int j=0; j<9; ++j)
+        {
+            facelet+=nativeString[j];
+        }
+        faceletStrings[i] = facelet;
+    }
+    string solution = Input(faceletStrings);
+    const char *c_str = solution.c_str();
+    jstring jsolution = env->NewStringUTF(c_str);
+    return jsolution;
+}
+
 #if 0
 
 
