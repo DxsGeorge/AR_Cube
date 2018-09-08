@@ -622,6 +622,73 @@ MyCube::MyCube()
 
 }
 
+Scalar letter_to_scal(char c)
+{
+    switch (c)
+    {
+        case 'R':
+            return Scalar(0,0,255);
+            break;
+        case 'B':
+            return Scalar(255,0,0);
+            break;
+        case 'G':
+            return Scalar(0,255,0);
+            break;
+        case 'W':
+            return Scalar(255,255,255);
+            break;
+        case 'Y':
+            return Scalar(0,255,255);
+            break;
+        case 'O':
+            return Scalar(0,125,255);
+            break;
+    }
+
+}
+
+vector<MatchedFace> simple_to_matched(string colors)
+{
+    vector<MatchedFace> m_faces;
+    vector<int> cols;
+    int int_count = 0;
+    for (int i = 0 ; i < 54 ; ++i)
+    {
+        if (colors[i] == colors[4]) m_faces[int_count].colors.push_back(1);
+        else if (colors[i] == colors[13]) m_faces[int_count].colors.push_back(2);
+        else if (colors[i] == colors[22]) m_faces[int_count].colors.push_back(3);
+        else if (colors[i] == colors[31]) m_faces[int_count].colors.push_back(4);
+        else if (colors[i] == colors[40]) m_faces[int_count].colors.push_back(5);
+        else if (colors[i] == colors[49]) m_faces[int_count].colors.push_back(6);
+        if (i%9 == 0 && i!=0) int_count++;
+    }
+
+    return m_faces;
+}
+
+MyCube::MyCube(string colors)
+{
+    vector<SimpleFace> simplefaces;
+    for (int i = 0 ; i != colors.length() ; i+=6)
+    {
+        Scalar col;
+        vector<Scalar> temp_face;
+        for (int j = 0 ; j < 9 ; ++j) temp_face.push_back(letter_to_scal(col[i+j]));
+        simplefaces.push_back(temp_face);
+    }
+    vector<MatchedFace> m_faces = simple_to_matched(colors);
+    this->F = m_faces[0];
+    this->L = m_faces[1];
+    this->R = m_faces[2];
+    this->U = m_faces[3];
+    this->D = m_faces[4];
+    this->B = m_faces[5];
+    this->faces = { this->F, this->L, this->R, this->U, this->D, this->B };
+
+    this->colfaces = simplefaces;
+}
+
 MyCube::MyCube(vector<MatchedFace> faces, vector<SimpleFace> colorfaces)
 {
     if (faces.size() != 6) cout << "too many faces" << endl;

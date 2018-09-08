@@ -320,29 +320,45 @@ Java_user_ar_1cube_MainActivity_processColors(JNIEnv *env, jobject, jdoubleArray
 JNIEXPORT jstring JNICALL
 Java_user_ar_1cube_MainActivity_kociemba(JNIEnv *env, jobject, jstring colors)
 {
-    unsigned int status;
-    const char *nativeString = env->GetStringUTFChars(colors, 0);
 
+    unsigned int status;
+    const char *nativeChar = env->GetStringUTFChars(colors, 0);
+    string nativeString(nativeChar);
     string faceletStrings[6];
     faceletStrings[0]+="U:";
     faceletStrings[1]+="D:";
     faceletStrings[2]+="F:";
     faceletStrings[3]+="B:";
-    faceletStrings[4]+="R:";
-    faceletStrings[5]+="L:";
-    for (int i =0; i < 6; ++i)
+    faceletStrings[4]+="L:";
+    faceletStrings[5]+="R:";
+    int int_count = 0;
+    for (int i = 0 ; i != nativeString.length() ; i+=9)
     {
-        string facelet;
-        for (int j=0; j<9; ++j)
-        {
-            facelet+=nativeString[j];
-        }
-        faceletStrings[i] = facelet;
+        string temp_face;
+        for (int j = 0 ; j < 9 ; ++j) temp_face += nativeString[i+j];
+        faceletStrings[int_count] += temp_face;
+        int_count++;
     }
     string solution = Input(faceletStrings);
     const char *c_str = solution.c_str();
     jstring jsolution = env->NewStringUTF(c_str);
     return jsolution;
+}
+
+JNIEXPORT jstring JNICALL
+Java_user_ar_1cube_MainActivity_changecube(JNIEnv *env, jobject,jstring j_cols, jstring j_step)
+{
+    const char *nativeCols = env->GetStringUTFChars(j_cols, 0);
+    const char *nativeStep = env->GetStringUTFChars(j_step, 0);
+
+    string colors(nativeCols);
+    string step(nativeStep);
+    MyCube temp_cube(colors);
+    temp_cube.CubeModify(step);
+
+    const char *c_str = colors.c_str();
+    jstring new_cols = env->NewStringUTF(c_str);
+    return new_cols;
 }
 
 #if 0

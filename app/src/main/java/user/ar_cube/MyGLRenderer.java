@@ -35,13 +35,18 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private float[] mTempMatrix = new float[16];
     private float angleX = 0;
     private float angleY = 0;
+    private float f_angleX = 0;
+    private float f_angleY = 0;
     private boolean finished_horizontal = false;
     private boolean finished_vertical = false;
+    private String temp_state = MainActivity.controlvars.color_state;
 
     private final float[] mAccumulatedRotation = new float[16];
     private final float[] mCurrentRotation = new float[16];
 
     private float mAngle;
+
+    private int step_count;
 
     String face1 = "";
     String face2 = "";
@@ -56,6 +61,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // Set the background frame color
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0f);
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
         float[] color = {0f,1f,1f,1f};
         Matrix.setIdentityM(mAccumulatedRotation, 0);
         mSquare   = new Square();
@@ -96,7 +102,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
             for (int i = 0 ; i < 9 ; ++i)
             {
-                face1 = face1+MainActivity.controlvars.state.charAt(i);
+                face1 = face1+MainActivity.controlvars.color_state.charAt(i);
             }
             // Draw square
             drawFace(face1);
@@ -109,7 +115,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
             for (int i = 0 ; i < 9 ; ++i)
             {
-                face2 = face2+MainActivity.controlvars.state.charAt(i+9);
+                face2 = face2+MainActivity.controlvars.color_state.charAt(i+9);
             }
             // Draw square
             drawFace(face2);
@@ -121,7 +127,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
             for (int i = 0 ; i < 9 ; ++i)
             {
-                face3 = face3+MainActivity.controlvars.state.charAt(i+18);
+                face3 = face3+MainActivity.controlvars.color_state.charAt(i+18);
             }
             // Draw square
             drawFace(face3);
@@ -133,7 +139,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
             for (int i = 0 ; i < 9 ; ++i)
             {
-                face4 = face4+MainActivity.controlvars.state.charAt(i+27);
+                face4 = face4+MainActivity.controlvars.color_state.charAt(i+27);
             }
             // Draw square
             drawFace(face4);
@@ -145,7 +151,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
             for (int i = 0 ; i < 9 ; ++i)
             {
-                face5 = face5+MainActivity.controlvars.state.charAt(i+36);
+                face5 = face5+MainActivity.controlvars.color_state.charAt(i+36);
             }
             // Draw square
             drawFace(face5);
@@ -157,7 +163,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
             for (int i = 0 ; i < 9 ; ++i)
             {
-                face6 = face6+MainActivity.controlvars.state.charAt(i+45);
+                face6 = face6+MainActivity.controlvars.color_state.charAt(i+45);
             }
             // Draw square
             drawFace(face6);
@@ -166,8 +172,120 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         else if (MainActivity.controlvars.seenFacesCount > 15)
         {
+            if (MainActivity.controlvars.show_solution && finished_horizontal && finished_vertical)
+            {
+                if (MainActivity.controlvars.solution.charAt(MainActivity.controlvars.solution_iterator) == ' ')
+                    MainActivity.controlvars.solution_iterator++;
+                if (MainActivity.controlvars.solution.charAt(MainActivity.controlvars.solution_iterator+1) == 39)
+                {
+                    switch (MainActivity.controlvars.solution.charAt(MainActivity.controlvars.solution_iterator)) {
+                        case 'F':
+                            rotateFront();
+                            drawOppositeArrow();
+                            break;
 
+                        case 'B':
+                            rotateBack();
+                            drawOppositeArrow();
+                            break;
+
+                        case 'U':
+                            rotateUp();
+                            drawOppositeArrow();
+                            break;
+
+                        case 'D':
+                            rotateDown();
+                            drawOppositeArrow();
+                            break;
+
+                        case 'L':
+                            rotateLeft();
+                            drawOppositeArrow();
+                            break;
+
+                        case 'R':
+                            rotateRight();
+                            drawOppositeArrow();
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (MainActivity.controlvars.solution.charAt(MainActivity.controlvars.solution_iterator)) {
+                        case 'F':
+                            rotateFront();
+                            drawArrow();
+                            break;
+
+                        case 'B':
+                            rotateBack();
+                            drawArrow();
+                            break;
+
+                        case 'U':
+                            rotateUp();
+                            drawArrow();
+                            break;
+
+                        case 'D':
+                            rotateDown();
+                            drawArrow();
+                            break;
+
+                        case 'L':
+                            rotateLeft();
+                            drawArrow();
+                            break;
+
+                        case 'R':
+                            rotateRight();
+                            drawArrow();
+                            break;
+                    }
+                }
+
+
+                if (MainActivity.controlvars.solution.charAt(MainActivity.controlvars.solution_iterator+1) == '2')
+                {
+                    switch (MainActivity.controlvars.solution.charAt(MainActivity.controlvars.solution_iterator))
+                    {
+                        case 'F':
+                            rotateFront();
+                            drawArrow();
+                            break;
+
+                        case 'B':
+                            rotateBack();
+                            drawArrow();
+                            break;
+
+                        case 'U':
+                            rotateUp();
+                            drawArrow();
+                            break;
+
+                        case 'D':
+                            rotateDown();
+                            drawArrow();
+                            break;
+
+                        case 'L':
+                            rotateLeft();
+                            drawArrow();
+                            break;
+
+                        case 'R':
+                            rotateRight();
+                            drawArrow();
+                            break;
+                    }
+                    MainActivity.controlvars.solution_iterator++;
+                }
+            }
             createCube();
+
+
         }
     }
 
@@ -501,6 +619,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         else if(!finished_vertical)
             Matrix.rotateM(mModelMatrix,0,angleY,1f,0,0f);
+
+        Matrix.rotateM(mModelMatrix,0,f_angleX,1f,0,0);
+        Matrix.rotateM(mModelMatrix, 0, f_angleY, 0 , 1f,0);
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
         mTempMatrix = mMVPMatrix.clone();
         Matrix.multiplyMM(mMVPMatrix, 0, mTempMatrix, 0, mModelMatrix, 0);
@@ -544,5 +665,56 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         Matrix.multiplyMM(mMVPMatrix, 0, mTempMatrix, 0, mModelMatrix, 0);
 
         drawHorizontalFace(face5);
+    }
+
+    void rotateFront()
+    {
+        //Matrix.setIdentityM(mModelMatrix,0);
+    }
+
+    void rotateBack()
+    {
+        //Matrix.setIdentityM(mModelMatrix,0);
+        face1 = face6;
+
+    }
+
+    void rotateUp()
+    {
+        //Matrix.setIdentityM(mModelMatrix,0);
+        face1 = face4;
+    }
+
+    void rotateDown()
+    {
+        face1 = face5;
+    }
+
+    void rotateLeft()
+    {
+        //Matrix.setIdentityM(mModelMatrix,0);
+        face1 = face2;
+    }
+
+    void rotateRight()
+    {
+        //Matrix.setIdentityM(mModelMatrix,0);
+        face1 = face3;
+    }
+
+    void drawArrow()
+    {
+        Line arr_base = new Line();
+        arr_base.SetVerts(-0.50f,-0.26f,0.05f,-0.60f,-0.26f,0.05f);
+        arr_base.SetColor(0,1f,0,1f);
+        arr_base.draw(mMVPMatrix);
+    }
+
+    void drawOppositeArrow()
+    {
+        Line arr_base = new Line();
+        arr_base.SetVerts(-0.50f,-0.26f,0.05f,-0.60f,-0.26f,0.05f);
+        arr_base.SetColor(0,1f,0,1f);
+        arr_base.draw(mMVPMatrix);
     }
 }

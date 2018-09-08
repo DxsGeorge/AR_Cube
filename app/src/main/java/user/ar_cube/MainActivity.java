@@ -90,6 +90,15 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             }
         });
 
+        final Button button2 = findViewById(R.id.button2_id);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controlvars.solution_iterator++;
+                controlvars.cube_changed = true;
+            }
+        });
+
         javaCameraView = (JavaCameraView) findViewById(R.id.java_camera_view);
         javaCameraView.setVisibility(SurfaceView.VISIBLE);
         javaCameraView.setCvCameraViewListener(this);
@@ -106,7 +115,14 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         v_list.add(p0);
         v_pts.fromList(v_list);
 
-        controlvars.state = "RRRRRRRRROOOOOOOOOYYYYYYYYYGGGGGGGGGBBBBBBBBBWWWWWWWWW";
+        controlvars.state = "FDBLUDLLBUUFRDLDDDFFUFFUFBRURURBULBRLBDRLUBBRRFLLRFDDB";
+
+        controlvars.color_state = "RRWRRWROGBOYGBWOOGGRBBGOYYORYOBWYBBOWWRGYBYYYWGWGOWBOG";
+
+        controlvars.solution = "U2 R2 B R' D B' U2 F D F B2 L F' D' R2 D' F2 R2 F2";
+
+
+
     }
 
 
@@ -186,7 +202,15 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             }
             controlvars.newface = false;
 
-            controlvars.solution = kociemba(controlvars.state);
+            //controlvars.solution = kociemba(controlvars.state);
+
+            controlvars.solution = controlvars.solution.replaceAll("\\s+","");
+
+            controlvars.faces_count = 6;
+
+            controlvars.parsedsolution = true;
+
+            controlvars.show_solution = true;
 
             if (controlvars.seenFacesCount < 16 ) controlvars.seenFacesCount++;
         }
@@ -209,11 +233,24 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         {
             System.out.println(controlvars.solution);
 
-
+            if (controlvars.cube_changed)
+            {
+                controlvars.color_state = changecube(controlvars.color_state,next_step(controlvars.solution,controlvars.solution_iterator));
+                controlvars.cube_changed = false;
+            }
 
             if (controlvars.seenFacesCount < 16 ) controlvars.seenFacesCount++;
         }
         return mRGBA;
+    }
+
+    private String next_step(String step, int count)
+    {
+        String next_step= "";
+        next_step += step.charAt(count);
+        if (step.charAt(count+1) == '2') next_step += step.charAt(count+1);
+        if (step.charAt(count+1) == '\'') next_step += step.charAt(count+1);
+        return next_step;
     }
 
     public native void process(long matAddrGr,
@@ -229,4 +266,6 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     public native String processColors(double[] faces);
 
     public native String kociemba(String state);
+
+    public native String changecube(String cols, String step);
 }

@@ -12,12 +12,12 @@ import android.opengl.GLES20;
  */
 public class Square {
 
-    float[] blue = {0,0,255,1};
-    float[] red = {255,0,0,1};
-    float[] green = {0,128,0,1};
-    float[] yellow = {255,255,0,1};
-    float[] orange = {255,69,0,1};
-    float[] white = {255,255,255,1};
+    float[] blue = {0,0,1f,1f};
+    float[] red = {1f,0,0,1f};
+    float[] green = {0,0.5f,0,1f};
+    float[] yellow = {1f,1f,0,1f};
+    float[] orange = {1f,0.5f,0,1f};
+    float[] white = {1f,1f,1f,1f};
 
 
     private final String vertexShaderCode =

@@ -24,7 +24,10 @@ public class ControlVariables {
     public boolean cap;
     public boolean newface;
     public String state;
+    public String color_state;
     public int seenFacesCount;
+    public boolean show_solution;
+    public boolean cube_changed = false;
 
     public int x1, x2, x3, x4, y1, y2, y3, y4;
     public int faces_count;
@@ -47,7 +50,9 @@ public class ControlVariables {
         cap = false;
         newface = false;
         state = "";
+        color_state = "";
         seenFacesCount = 0;
+        show_solution = false;
     }
 
     public int getTracking() { return tracking; }

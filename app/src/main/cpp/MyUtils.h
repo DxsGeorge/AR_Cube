@@ -115,6 +115,7 @@ public:
     MyCube();
     MyCube(vector<MatchedFace> faces, vector<SimpleFace> colorfaces);
     MyCube(vector<SimpleFace> colorfaces);
+    MyCube(string colors);
     vector<MatchedFace> faces;
     vector <tuple<Scalar, char>> centercolors;
     vector<vector<char>> facecolors_char;
